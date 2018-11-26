@@ -20,11 +20,9 @@ db.poolMin=3
 db.poolMax=5
 ```  
 1. From your repo root directory, run 'gradlew build bootRun'
-1. Open your browser to http://localhost:8080/demo/helloworld/${NAME_OF_A_TABLE_IN_YOUR_DB}
-1. See the main [Snooze Readme](https://github.com/RocketPartners/rckt_snooze/configuring-your-api) for more information.
+1. Open your browser to ht<span>tp://</span>//localhost:8080/demo/helloworld/${NAME_OF_A_TABLE_IN_YOUR_DB}
+1. See the main [Snooze Readme](https://github.com/RocketPartners/rckt_snooze#configuring-your-api) for more information.
 1. Enjoy!
-
-
 
 
 ## Using Spring Boot Profiles
@@ -34,18 +32,14 @@ This makes it easy to keep dev/stage/prod config files in the same project/deplo
 
 For example, if you supply both a snooze.properties and snooze-prod.properties, the settings in the prod file will override the settings in the main "snooze.properties"
 file.  To set the runtime target to prod and load this extra file, add the following to your JVM args '-Dspring.profiles.active=prod'.  You can have as many 
-deployment targets as you would like.  A typical project may have something like:
+deployment targets as you would like.  A typical project may have something like the following all in the same project:
 
- * snooze.properties
- * snooze-dev.properties
- * snooze-stage.properties
- * snooze-prod.properties
+ * snooze.properties (will always load)
+ * snooze-dev.properties (will only load when profile is 'dev' and will overwrite values from snooze.properties)
+ * snooze-stage.properties (will only load when profile is 'stage' and will overwrite values from snooze.properties)
+ * snooze-prod.properties (will only load when profile is 'prod' and will overwrite values from snooze.properties)
  
-all in the same project.
-
-
-
-
+ 
 ## Keeping Passwords out of Config Files
 
 If you want to keep your database passwords (or any other sensative info) out of your snoooze.properties config files, you can simply set an environment variable OR
