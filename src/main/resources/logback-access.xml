@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+
+<configuration>
+	<!-- always a good activate OnConsoleStatusListener -->
+	<statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+	
+	<property name="LOGS_HOME" value="logs" />
+
+	<appender name="ACCESS_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<!-- Pattern descriptions can be seen @ https://logback.qos.ch/access.html -->
+			<pattern>combined</pattern>
+		</encoder>
+		<file>${LOGS_HOME}/access.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- 
+			  - Rollover daily 
+              - Due to the .zip suffix included in the value for fileNamePattern 
+              - option, the log files are not only rolled daily, but they are 
+              - also automatically compressed. 
+              -->
+			<fileNamePattern>${LOGS_HOME}/access.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<!-- 
+			  - Each file should be at most 1MB, keep 20 days worth of history, but 
+			  - at most 10MB 
+			  -->
+			<maxFileSize>15MB</maxFileSize>
+			<maxHistory>10</maxHistory>
+			<totalSizeCap>150MB</totalSizeCap>
+		</rollingPolicy>
+
+	</appender>
+
+	<appender-ref ref="ACCESS_FILE" />
+</configuration>

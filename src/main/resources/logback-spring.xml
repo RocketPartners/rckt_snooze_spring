@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+	<property name="LOG_DIR" value="logs"/>
+	<property name="LOG_FILE" value="${LOG_DIR}/application"/>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+		</encoder>
+		<file>${LOG_FILE}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+	      <!-- rollover daily -->
+	      <fileNamePattern>${LOG_FILE}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+	       <!-- each file should be at most 1MB, keep 20 days worth of history, but at most 10MB -->
+	       <maxFileSize>1MB</maxFileSize>
+	       <maxHistory>20</maxHistory>
+	       <totalSizeCap>10MB</totalSizeCap>
+	    </rollingPolicy>
+	</appender>
+
+
+	<logger name="io.rcktapp.api.service" level="INFO"/>
+
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+	
+
+</configuration>
