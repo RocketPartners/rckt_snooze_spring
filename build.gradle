@@ -39,8 +39,14 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-test'
 	compile 'net.rakugakibox.spring.boot:logback-access-spring-boot-starter:2.6.0'
 	
-	//change your Snooze branch below as desired
-	compile("com.github.RocketPartners:rckt_snooze:release-0.3.x-SNAPSHOT")
+	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.34'
+	
+	if (gradle.ext.liftck_snooze['addRocketSnoozeProjectToClasspath']) {
+    		compile findProject(":rckt_snooze")
+    }
+    else {
+   		compile("com.github.RocketPartners:rckt_snooze:release-0.3.x-SNAPSHOT") { changing = true }
+    }
 }
 
 

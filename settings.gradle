@@ -1,0 +1,31 @@
+/*
+ * Loads before build.gradle
+ * This is necessary for loading projects independent of this project.
+ *
+ * Set to true if you are making changes to a fort project
+ * and want to see those changes immediately affect 
+ * this project within eclipse without need of running 
+ * 'gradle install' and then refreshing the project.
+ */
+
+gradle.ext {
+
+	liftck_snooze = [
+		'addRocketSnoozeProjectToClasspath':true
+	]
+
+	// Values to edit
+	def pathToRocketSnooze= '../rckt_snooze'
+	
+	// ###################################################
+	// Below loads the project ... no need to edit.
+	
+	// rckt_snooze
+	if (liftck_snooze['addRocketSnoozeProjectToClasspath']) {
+		// apply from: "${pathToRocketSnooze}/settings.gradle"
+		include ':rckt_snooze'
+		project(":rckt_snooze").projectDir = file(pathToRocketSnooze)
+	}
+	
+	
+}
