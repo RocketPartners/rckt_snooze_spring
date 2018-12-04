@@ -16,7 +16,8 @@
  */
 package io.rcktapp.api.spring.controller;
 
-import javax.servlet.ServletContext;
+import java.io.InputStream;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,7 +31,7 @@ import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.rcktapp.api.service.Snooze;
+import io.rcktapp.api.service.Servlet;
 
 /**
  * @author kfrankic
@@ -39,7 +40,7 @@ import io.rcktapp.api.service.Snooze;
 @RestController
 public class SnoozeController implements InitializingBean
 {
-   Logger         log    = LoggerFactory.getLogger(SnoozeController.class);
+   Logger         log     = LoggerFactory.getLogger(SnoozeController.class);
 
    @Autowired
    ResourceLoader resourceLoader;
@@ -47,7 +48,7 @@ public class SnoozeController implements InitializingBean
    @Autowired
    Environment    environment;
 
-   Snooze         snooze = null;
+   Servlet        servlet = new Servlet();
 
    @Override
    public void afterPropertiesSet() throws Exception
@@ -66,19 +67,19 @@ public class SnoozeController implements InitializingBean
             log.info("No active spring profile was configured - use 'spring.profiles.active' to configure one");
          }
 
-         ResourceLoaderServletContext ctx = new ResourceLoaderServletContext(resourceLoader);
+         final ResourceLoaderServletContext ctx = new ResourceLoaderServletContext(resourceLoader);
 
-         snooze = new Snooze()
+         servlet.getService().setResourceLoader(new io.rcktapp.api.service.Service.ResourceLoader()
             {
                @Override
-               public ServletContext getServletContext()
+               public InputStream getResource(String name)
                {
-                  return ctx;
+                  return ctx.getResourceAsStream(name);
                }
-            };
+            });
 
-         snooze.setProfile(profile);
-         snooze.init();
+         servlet.getService().setProfile(profile);
+         servlet.getService().init();
 
       }
       catch (Exception e)
@@ -92,7 +93,7 @@ public class SnoozeController implements InitializingBean
    @RequestMapping(value = "/**")
    public void handleRequest(HttpServletRequest req, HttpServletResponse resp) throws Exception
    {
-      snooze.service(req, resp);
+      servlet.service(req, resp);
    }
 
    static class ResourceLoaderServletContext extends MockServletContext
