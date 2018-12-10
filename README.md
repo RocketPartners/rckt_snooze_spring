@@ -25,6 +25,21 @@ This Spring Boot project template and guide can help you get your [Snooze](https
 1. Enjoy!
 
 
+## Clone / Fork
+
+1. Create a new repo in GitHub without a README -- **IMPORTANT: DO NOT CREATE DEFAULT README**
+1. Clone the repo 
+`git clone git@github.com:RocketPartners/rckt_snooze_spring.git {NEW_REPO_NAME_GOES_HERE}`
+1. Rename the cloned repo to "upstream"
+`git remote rename origin upstream`
+1. Make your new repo the "origin" remote
+`git remote add origin git@github.com:RocketPartners/{NEW_REPO_NAME_GOES_HERE}.git`
+1. Push the clone to your new repo
+`git push origin master`
+1. Make your local master branch use origin as it's remote-tracking-branch
+`git branch master -u origin/master`
+
+
 ## Using Spring Boot Profiles
 
 Snooze lets you [supply config files](https://github.com/RocketPartners/rckt_snooze#configuring-your-api) that are numbered and/or named to match a Spring deployment target profile.
