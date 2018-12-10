@@ -20,7 +20,7 @@ This Spring Boot project template and guide can help you get your [Snooze](https
     db.poolMax=5
     ```  
 1. From your repo root directory, run 'gradlew build bootRun'
-1. Open your browser to ht<span>tp://</span>//localhost:8080/demo/helloworld/${NAME_OF_A_TABLE_IN_YOUR_DB}
+1. Open your browser to http://localhost:8080/demo/helloworld/${NAME_OF_A_TABLE_IN_YOUR_DB}
 1. See the main [Snooze Readme](https://github.com/RocketPartners/rckt_snooze#configuring-your-api) for more information.
 1. Enjoy!
 
