@@ -111,6 +111,11 @@ public class SnoozeController implements InitializingBean
          {
             path = path.replace("/WEB-INF/", "classpath:");
             path = path.replace("WEB-INF/", "classpath:");
+            
+            if (!path.startsWith("classpath:"))
+            {
+               path = "classpath:" + path;
+            }
          }
          return path;
       }
