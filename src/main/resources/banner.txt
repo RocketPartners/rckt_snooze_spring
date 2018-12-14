@@ -1,0 +1,10 @@
+  _____                          
+ / ____|                         
+| (___  _ __   ___   ___ _______ 
+ \___ \| '_ \ / _ \ / _ \_  / _ \
+ ____) | | | | (_) | (_) / /  __/
+|_____/|_| |_|\___/ \___/___\___|
+=================================
+Snooze API as a Service Platform
+https://github.com/RocketPartners/rckt_snooze
+Copyright (c) 2018 Rocket Partners, LLC
