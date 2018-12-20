@@ -25,6 +25,8 @@ group = 'com.github.RocketPartners'
 repositories { 
    mavenLocal()
    mavenCentral() 
+   /* obtains the redshift jdbc driver */
+   maven { url "http://redshift-maven-repository.s3-website-us-east-1.amazonaws.com/release" }
    maven { url 'https://jitpack.io' }
 }
 
@@ -78,4 +80,75 @@ task "create-dirs" {
    }
 }
 
-  
+
+
+/************************************************************
+ * This task is used to update the image tag name inside the
+ * taskdef.json file.  The updated file is copied to the build dir.
+ * Usage: gradle updateTaskDefImageTagName -PimageTagName=someAwesomeTagNameGoesHere
+ */
+import org.apache.tools.ant.filters.ReplaceTokens
+
+task updateTaskDefImageTagName() {
+	doLast {
+	
+		if(project.hasProperty('taskDefFile')){
+			println "Using Task Def File: ${taskDefFile}"
+	    }else{
+	    		throw new GradleException("\"taskDefFile\" property is required. ex: -PtaskDefFile=env/your-app-name-prod/taskdef.json") 
+	    }
+	
+	    copy {
+	        from "${taskDefFile}"
+		    into buildDir
+		    
+		    println "Updating the image tag name in the taskdef.json file"
+		    
+		    if(project.hasProperty('imageTagName')){
+		    		println "Using Image Tag Name: ${imageTagName}"
+		    		filter(ReplaceTokens, tokens: [IMAGE_TAG_NAME: imageTagName])
+		    }else{
+		    		throw new GradleException("\"imageTagName\" property is required. ex: -PimageTagName=myImage") 
+		    }
+	    }
+    }
+}
+
+task sendSlackMsg() {
+	doLast {
+	    
+		// blue #007dbc
+		// green #1e8900
+		// red #df3312 
+	    
+	    println "sendSlackMsg task is commented out, see the build.gradle file to enable.  Doing nothing."
+	    
+	    /*
+	    
+	     if(project.hasProperty('slackTitle') && project.hasProperty('slackText')){
+		    		
+		    	def color = "#007dbc"
+			if(project.hasProperty('slackColor')){
+				color = "${slackColor}"
+			}	
+	    		def title = "${slackTitle}"
+	    		def text = "${slackText}"
+		    
+		    String json = "{"
+	        json += "\"color\":\"${color}\","
+	        json += "\"title\":\"${title}\","
+	        json += "\"fallback\":\"${title}\","
+	        json += "\"text\":\"${text}\"}"
+		    
+		    json = "{ \"attachments\": [" + json + "]}"
+		    
+		    def curlResult = ['curl', '-X', 'POST', '-H', "Content-Type: application/json", 'https://hooks.slack.com/services/CHANGE-THIS-TO-YOUR-WEBHOOK', '-d', json].execute().text
+		    		
+		 }else{
+		    	throw new GradleException("\"slackTitle\" property and \"slackText\" property are required. ex: -PslackTitle=Building blah") 
+		 }
+		 
+		 */
+    		
+    }
+}  
