@@ -11,7 +11,7 @@
 gradle.ext {
 
 	liftck_snooze = [
-		'addRocketSnoozeProjectToClasspath':true
+		'addRocketSnoozeProjectToClasspath':false
 	]
 
 	// Values to edit
