@@ -41,11 +41,11 @@ dependencies {
 	
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.34'
 	
-	if (gradle.ext.liftck_snooze['addRocketSnoozeProjectToClasspath']) {
-    		compile findProject(":rckt_snooze")
+	if (gradle.ext.spring_snooze['addRocketInversionProjectToClasspath']) {
+    		compile findProject(":rocket-inversion")
     }
     else {
-   		compile("com.github.RocketPartners:rckt_snooze:release-0.3.x-SNAPSHOT") { changing = true }
+   		compile("com.github.RocketPartners:rocket-inversion:release-0.3.x-SNAPSHOT") { changing = true }
     }
 }
 

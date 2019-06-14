@@ -10,21 +10,21 @@
 
 gradle.ext {
 
-	liftck_snooze = [
-		'addRocketSnoozeProjectToClasspath':true
+	spring_snooze = [
+		'addRocketInversionProjectToClasspath':false
 	]
 
 	// Values to edit
-	def pathToRocketSnooze= '../rckt_snooze'
+	def pathToRocketInversion= '../rocket-inversion'
 	
 	// ###################################################
 	// Below loads the project ... no need to edit.
 	
 	// rckt_snooze
-	if (liftck_snooze['addRocketSnoozeProjectToClasspath']) {
-		// apply from: "${pathToRocketSnooze}/settings.gradle"
-		include ':rckt_snooze'
-		project(":rckt_snooze").projectDir = file(pathToRocketSnooze)
+	if (spring_snooze['addRocketInversionProjectToClasspath']) {
+		// apply from: "${pathToRocketInversion}/settings.gradle"
+		include ':rocket-inversion'
+		project(":rocket-inversion").projectDir = file(pathToRocketInversion)
 	}
 	
 	
